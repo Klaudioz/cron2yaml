@@ -2,7 +2,8 @@
 	"name": "cron2yaml",
 	"displayName": "cron2yaml",
 	"description": "Convert cron entries to yaml",
-	"version": "0.0.1",
+	"version": "0.0.2",
+  "publisher": "klaudioz",
 	"engines": {
 		"vscode": "^1.31.0"
 	},
@@ -10,17 +11,25 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:cron2yaml.convert"
 	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
+	"main": "./out/cron2yaml.js",
+  "contributes": {
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "cron2yaml.convert",
+                    "group": "9_cutcopypaste@500"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "cron2yaml.convert",
+                "title": "Convert cron entries to yaml"
+            }
+        ]
+    },
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
@@ -34,5 +43,9 @@
 		"tslint": "^5.12.1",
 		"@types/node": "^10.12.21",
 		"@types/mocha": "^2.2.42"
-	}
+	},
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/Klaudioz/cron2yaml.git"
+  }
 }
