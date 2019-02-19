@@ -2,7 +2,7 @@
 	"name": "cron2yaml",
 	"displayName": "cron2yaml",
 	"description": "Convert cron entries to yaml",
-	"version": "0.0.2",
+	"version": "0.9.0",
   "publisher": "klaudioz",
 	"engines": {
 		"vscode": "^1.31.0"
