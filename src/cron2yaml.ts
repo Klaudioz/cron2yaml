@@ -10,6 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let disposable = vscode.commands.registerCommand("cron2yaml.convert", () => {
         let editor = vscode.window.activeTextEditor;
+        let previous = "";
         if (typeof editor !== "undefined") {
             let doc = editor.document;
             let cur_selection = editor.selection;
@@ -21,23 +22,43 @@ export function activate(context: vscode.ExtensionContext) {
 
             let yaml = "";
             let text = doc.getText(cur_selection).split(/\r\n|\r|\n/);
-            //let crons = text.split(/\r\n|\r|\n/);
 
             for (let line of text) {
                 if (line.startsWith("#")) { // It's a comment
-                    yaml += line + "\n";
+                    previous = line;
                 }
                 else {
                     let cron_values = line.split(" ");
                     if (cron_values.length < 6) {
-                        console.log('Invalid cron entry: ' + line);
+                        console.log("Invalid cron entry: " + line);
                         yaml += line + "\n";
                     }
                     else {
-                        // Just starting the logic
-                        yaml += cron_values[-1] + ":" + "\n";
+                        yaml += "cronjob_:" + cron_values.slice(5).join("") + "\n" + "  " + "cron.present:" + "\n" + "    -name: " + cron_values.slice(5).join(" ") + "\n" + "    -user: root" + "\n";
+                        if (cron_values[0] !== "*") {
+                            yaml += "    -minute: " + cron_values[0] + "\n";
+                        }
+                        if (cron_values[1] !== "*") {
+                            yaml += "    -hour: " + cron_values[1] + "\n";
+                        }
+                        if (cron_values[2] !== "*") {
+                            yaml += "    -daymonth: " + cron_values[2] + "\n";
+                        }
+                        if (cron_values[3] !== "*") {
+                            yaml += "    -month: " + cron_values[3] + "\n";
+                        }
+                        if (cron_values[4] !== "*") {
+                            yaml += "    -dayweek: " + cron_values[4] + "\n";
+                        }
+                        if (previous.startsWith("#")) {
+                            yaml += "    -comment:" + previous.replace('#', '') + "\n";
+                        }
+                        else {
+                            yaml += "\n";
+                        }
                     }
                 }
+                previous = line;
             }
             editor.edit(edit => {
                 edit.replace(cur_selection, yaml);
