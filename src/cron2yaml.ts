@@ -56,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
                             yaml += "    - dayweek: " + cron_values[4] + "\n";
                         }
                         if (previous.startsWith("#")) {
-                            yaml += "    - comment: " + previous.replace('#', '') + "\n";
+                            yaml += "    - comment: " + previous.replace('#', '').replace(':', '') + "\n"; // Cleaning comments
                         }
                     }
                 }
