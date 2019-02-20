@@ -1,5 +1,8 @@
 # README
 
+### Demo
+![](cron2yaml_demo.gif)
+
 ### How to Use
 * right click to "Convert cron to yaml"
 
