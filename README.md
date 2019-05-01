@@ -37,4 +37,8 @@ cronjob_/var/www/common/scripts/log_watcher.php:
 https://docs.saltstack.com/en/latest/ref/states/all/salt.states.cron.html#salt.states.cron.present
 
  salt.states.cron.present(name, user=u'root', minute=u'*', hour=u'*', daymonth=u'*', month=u'*', dayweek=u'*', comment=None, commented=False, identifier=False, special=None)
+ 
+ ### Marketplace link
+ 
+ https://marketplace.visualstudio.com/items?itemName=klaudioz.cron2yaml
 
